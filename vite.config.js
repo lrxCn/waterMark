@@ -9,7 +9,7 @@ export default ({ mode }) => {
   const { VITE_PORT, VITE_BASE_URL } = loadEnv(mode, process.cwd());
 
   return defineConfig({
-    base: 'watermark',
+    base: VITE_BASE_URL,
     plugins: [
       vue(),
       AutoImport({
@@ -65,7 +65,6 @@ export default ({ mode }) => {
       proxy: {},
     },
     build: {
-      outDir: 'watermark',
       // 设置最终构建的浏览器兼容目标
       target: 'es2015',
       // 构建后是否生成 source map 文件
