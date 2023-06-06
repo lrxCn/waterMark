@@ -1,9 +1,9 @@
-import { defineConfig, loadEnv } from 'vite';
-import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
+import { resolve } from 'path';
 import AutoImport from 'unplugin-auto-import/vite';
+import { NaiveUiResolver, TDesignResolver } from 'unplugin-vue-components/resolvers';
 import Components from 'unplugin-vue-components/vite';
-import { TDesignResolver } from 'unplugin-vue-components/resolvers';
+import { defineConfig, loadEnv } from 'vite';
 
 export default ({ mode }) => {
   const { VITE_PORT, VITE_BASE_URL } = loadEnv(mode, process.cwd());
@@ -13,6 +13,12 @@ export default ({ mode }) => {
     plugins: [
       vue(),
       AutoImport({
+        imports: [
+          'vue',
+          {
+            'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar'],
+          },
+        ],
         resolvers: [
           TDesignResolver({
             library: 'vue-next',
@@ -21,6 +27,7 @@ export default ({ mode }) => {
       }),
       Components({
         resolvers: [
+          NaiveUiResolver(),
           TDesignResolver({
             library: 'vue-next',
           }),

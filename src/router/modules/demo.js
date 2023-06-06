@@ -9,4 +9,8 @@ export default [
     name: 'pinia',
     component: () => import('@/views/PiniaView.vue'),
   },
+  {
+    path: '/:w+',
+    component: () => import('@/views/NotFound404.vue'),
+  },
 ];
