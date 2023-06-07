@@ -18,6 +18,9 @@
       :label-width="80"
       :model="formValue"
     >
+      <n-form-item label="顶部文字" path="top">
+        <n-input v-model:value="formValue.top" placeholder="输入顶部文字" />
+      </n-form-item>
       <n-form-item label="年" path="year">
         <n-input v-model:value="formValue.year" placeholder="输入年,空代表随机,随机范围前后5年" />
       </n-form-item>
@@ -46,13 +49,14 @@
         <div class="item-container">
         <img :src=src alt="" @load="loadItems++">
         <RandomText
+            :title="formValue.top"
             :year="formValue.year"
             :month="formValue.month"
             :day="formValue.day"
             :hour="formValue.hour"
             :minute="formValue.minute"
             :second="formValue.second"
-            :key="`${formValue.year}_${formValue.month}_${formValue.day}_${formValue.hour}_${formValue.minute}_${formValue.second}_${index}`"
+            :key="`${formValue.top}_${formValue.year}_${formValue.month}_${formValue.day}_${formValue.hour}_${formValue.minute}_${formValue.second}_${index}`"
           />
       </div>
     </div>
@@ -74,6 +78,7 @@ const loadItems = ref(0);
 const loading = ref(false);
 const listDom = ref(null);
 const formValue = ref({
+  top: '悦然臻城',
   year: `${currentYear}`,
   month: `${date.getMonth() + 1}`,
   day: `${date.getDate()}`,
@@ -123,20 +128,14 @@ const submit = () => {
 }
 
 .list {
-  position: fixed;
-  top: 100vh;
+  // position: fixed;
+  // top: 100vh;
 
   .item {
     display: inline-block;
 
     .item-container{
       position: relative;
-
-      span {
-        position: absolute;
-        right: 2%;
-        bottom: 2%;
-      }
 
       img {
         width: 200px;
